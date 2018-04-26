@@ -22,21 +22,23 @@ var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
         // "Enter" instead of clicking the button if desired
         event.preventDefault();
 
-        queryTerm = $("#cute-input").val().trim();
+        queryTerm = $("#cute-input").val();
         //push the users submitted topic to the array
-        topics.push(queryTerm);
+        categories.push(queryTerm);
         // variable that holds a button with the queryTerm embedded
-        var topicButton = $("<button>" + queryTerm + "</button>");
+        var categoryButton = $("<button>" + queryTerm + "</button>");
         // give the new button the data-animal attribute
-        topicButton.attr("data-animal", queryTerm);
+        categoryButton.attr("data-animal", queryTerm);
         // place the new button in the div with #buttons id
-        $("#buttons").append(topicButton);
+        $("#buttons").append(categoryButton);
         //==have the buttons coordinate with the giphy api========
-        $("button").on("click", function() {
-            var x = $(this).data("animal");
-            console.log(x);
-            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-                x + "&api_key=7bBdC4gBmRiNNZ24sbtPXdTF2P5OByBI&limit=10";
+        $("#buttons").on("click", function() {
+
+            queryURL;
+            // var x = $(this).data("cuteness");
+            // console.log(x);
+            // var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+            //     x + "&api_key=7bBdC4gBmRiNNZ24sbtPXdTF2P5OByBI&limit=10";
 
       // Performing an AJAX request with the queryURL
       $.ajax({
@@ -69,17 +71,20 @@ var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
           newDiv.append(p);
           newDiv.append(newImage);
 
-          // Prependng the animalDiv to the HTML page in the "#gifs-appear-here" div
-          $("#gifs-appear-here").prepend(animalDiv);
+          // Prependng the newDiv to the HTML page in the "#gifs-appear-here" div
+          $("#gifsHere").prepend(newDiv);
         }
-      });
+    });
+});
+});
+      
 
       function renderButtons() {
 
         // Delete the content inside the movies-view div prior to adding new movies
         // (this is necessary otherwise you will have repeat buttons)
 
-        $("#cuteButtons").empty();
+        $("#buttons").empty();
         categories.push($("#cute-form").val()) 
 
         // Loop through the array of movies, then generate buttons for each movie in the array
@@ -89,30 +94,11 @@ var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
 
           var cuteButton = $('<button>');
           cuteButton.text(categories[i]);
-          $('#cuteButtons').append(cuteButton)
+          $('#buttons').append(cuteButton)
         }
 
-      }
       console.log("hello?", renderButtons());
 
-      // This function handles events where the add movie button is clicked
-    //   $("#add-input").on("click", function(event) {
-    //     // event.preventDefault() prevents submit button from trying to send a form.
-    //     // Using a submit button instead of a regular button allows the user to hit
-    //     // "Enter" instead of clicking the button if desired
-    //     event.preventDefault();
-
-    //     // Write code to grab the text the user types into the input field
-    //     // Write code to add the new movie into the movies array
-
-    //     // The renderButtons function is called, rendering the list of movie buttons
-    //     renderButtons();
-    //   });
-
-    //   // Calling the renderButtons function to display the initial list of movies
-    //   renderButtons();
-
-      //add this somehow to the gifs that get populated
       $(".gif").on("click", function() {
         // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
         var state = $(this).attr("data-state");
@@ -126,6 +112,9 @@ var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
           $(this).attr("src", $(this).attr("data-still"));
           $(this).attr("data-state", "still");
         }
-      });
-      // for the pausing gifs
 
+    });
+
+};
+
+});
