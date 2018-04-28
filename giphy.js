@@ -11,10 +11,30 @@ var categories = [
 var queryTerm = "";
 // variable to piece together the api main link and the api key,
 // with the ability to have a query search
-var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-      categories + "&api_key=dc6zaTOxFJmzC&limit=10";
+// var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+//       categories + "&api_key=dc6zaTOxFJmzC&limit=10";
 
       $(document).ready(function() {
+
+        function renderButtons() {
+
+            // Delete the content inside the movies-view div prior to adding new movies
+            // (this is necessary otherwise you will have repeat buttons)
+    
+            $("#buttons").empty();
+    
+            // Loop through the array of movies, then generate buttons for each movie in the array
+    
+            for (var i = 0; i < categories.length; i++) {
+              // $("#add-movie").html("<button>");
+    
+              var cuteButton = $('<button>');
+              cuteButton.text(categories[i]);
+              $('#buttons').append(cuteButton)
+            }
+        }
+
+        renderButtons();
 
       $("#add-input").on("click", function(event) {
         // event.preventDefault() prevents submit button from trying to send a form.
@@ -22,23 +42,34 @@ var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
         // "Enter" instead of clicking the button if desired
         event.preventDefault();
 
+        // categories.push($("#cute-form").val()) 
+
         queryTerm = $("#cute-input").val();
+        $("#cute-input").val("");
         //push the users submitted topic to the array
         categories.push(queryTerm);
-        // variable that holds a button with the queryTerm embedded
-        var categoryButton = $("<button>" + queryTerm + "</button>");
-        // give the new button the data-animal attribute
-        categoryButton.attr("data-animal", queryTerm);
-        // place the new button in the div with #buttons id
-        $("#buttons").append(categoryButton);
-        //==have the buttons coordinate with the giphy api========
-        $("#buttons").on("click", function() {
 
+        // console.log(categories);
+        // variable that holds a button with the queryTerm embedded
+        // var categoryButton = $("<button>" + queryTerm + "</button>");
+        // // give the new button the data-animal attribute
+        // categoryButton.attr("data-animal", queryTerm);
+        // // place the new button in the div with #buttons id
+        // $("#buttons").append(categoryButton);
+
+        renderButtons();
+        //==have the buttons coordinate with the giphy api========
+        $("#buttons").on("click", "button", function() {
+
+            var searchTerm = $(this).text();
+console.log(searchTerm);
             queryURL;
             // var x = $(this).data("cuteness");
             // console.log(x);
             // var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
             //     x + "&api_key=7bBdC4gBmRiNNZ24sbtPXdTF2P5OByBI&limit=10";
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+            searchTerm + "&api_key=dc6zaTOxFJmzC&limit=10";
 
       // Performing an AJAX request with the queryURL
       $.ajax({
@@ -47,9 +78,9 @@ var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
       })
       // After data comes back from the request
       .then(function(response) {
-        console.log(queryURL);
+        // console.log(queryURL);
 
-        console.log(response);
+        // console.log(response);
         // storing the data from the AJAX request in the results variable
         var results = response.data;
 
@@ -79,26 +110,6 @@ var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
 });
       
 
-      function renderButtons() {
-
-        // Delete the content inside the movies-view div prior to adding new movies
-        // (this is necessary otherwise you will have repeat buttons)
-
-        $("#buttons").empty();
-        categories.push($("#cute-form").val()) 
-
-        // Loop through the array of movies, then generate buttons for each movie in the array
-
-        for (var i = 0; i < categories.length; i++) {
-          // $("#add-movie").html("<button>");
-
-          var cuteButton = $('<button>');
-          cuteButton.text(categories[i]);
-          $('#buttons').append(cuteButton)
-        }
-
-      console.log("hello?", renderButtons());
-
       $(".gif").on("click", function() {
         // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
         var state = $(this).attr("data-state");
@@ -115,6 +126,4 @@ var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
 
     });
 
-};
-
-});
+      });
