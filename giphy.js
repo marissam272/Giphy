@@ -4,9 +4,20 @@
 var apiKey = "oJsmyX8BKSB5H0S1b44TVyFKIbl2KWrr";
 //variable named categories that contains an array of strings
 var categories = [
-    "kittens",
-    "puppies",
-    "babies"
+    "tacos",
+    "barbeque",
+    "chicken",
+    "bratwurst",
+    "cheese",
+    "salads",
+    "soups",
+    "bread",
+    "eggs",
+    "bacon",
+    "cheesecurds",
+    "nutella",
+    "chips",
+    "pineapple"
 ];
 var queryTerm = "";
 // variable to piece together the api main link and the api key,
@@ -18,12 +29,12 @@ var queryTerm = "";
 
         function renderButtons() {
 
-            // Delete the content inside the movies-view div prior to adding new movies
+            // Delete the content inside the categories-view div prior to adding new movies
             // (this is necessary otherwise you will have repeat buttons)
     
             $("#buttons").empty();
     
-            // Loop through the array of movies, then generate buttons for each movie in the array
+            // Loop through the array of categories, then generate buttons for each movie in the array
     
             for (var i = 0; i < categories.length; i++) {
               // $("#add-movie").html("<button>");
